@@ -46,8 +46,6 @@ A reference and showcase site covering firearms history from the 12th century (e
 **Layout:**
 - Centered card/modal on a themed background (subtle parchment or gunmetal texture)
 - Fields: Email/Username, Password
-- "Remember Me" checkbox
-- "Forgot Password?" link
 - Primary "Log In" button
 - Secondary link: "Don't have an account? Register here" (→ registration page)
 - Optional: social/SSO login buttons if applicable
@@ -60,7 +58,6 @@ A reference and showcase site covering firearms history from the 12th century (e
 **Layout:**
 - Centered card, same visual theme as login for consistency
 - Fields: Full Name, Username, Email, Password, Confirm Password
-- Checkbox: Agree to Terms of Service / Privacy Policy
 - Primary "Create Account" button
 - Secondary link: "Already have an account? Log in"
 - Optional: interest tags at signup (e.g., "Collector", "Reenactor", "Researcher", "Prop Maker") to personalize homepage content later
