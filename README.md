@@ -9,7 +9,7 @@ A reference and showcase site covering firearms history from the 12th century (e
 **Purpose:** First impression, hooks visitors, funnels them to homepage or login.
 
 **Sections:**
-- **Hero banner** — full-width image (e.g., a matchlock or flintlock musket), site title, tagline (e.g., "A Journey Through 700 Years of Firearms History")
+- **Hero banner** — full-width image (e.g., a matchlock or flintlock musket), site title, tagline (Placeholder - "A Journey Through 700 Years of Firearms History")
 - **Era timeline strip** — quick visual nav: Hand Cannons (1200s) → Matchlock (1400s) → Wheellock (1500s) → Flintlock (1600s–1700s) → Percussion Cap (early 1800s)
 - **Featured pieces carousel** — 3–5 highlighted firearms with thumbnail, name, era
 - **Call-to-action buttons** — "Explore the Collection" (→ homepage), "Sign In", "Create Account"
