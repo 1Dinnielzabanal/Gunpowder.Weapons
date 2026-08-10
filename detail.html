@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>British "Brown Bess" Musket — gunpowder.weapon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --iron:#171512; --iron-deep:#0f0e0c; --panel:#1c1a16;
+    --steel:#3b3833; --steel-light:#5c584f;
+    --brass:#c9a568; --brass-bright:#e3c081;
+    --parchment:#e9e0c8; --parchment-dim:#b9ae8f;
+    --oxblood:#7c2c20; --oxblood-bright:#a5402f;
+    --rule: rgba(201,165,104,0.25);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--iron); color:var(--parchment); font-family:'EB Garamond',serif; font-size:17.5px; line-height:1.65;}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif; font-weight:600; margin:0;}
+  .eyebrow{font-family:'Special Elite',monospace; font-size:11.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--brass);}
+  a{color:inherit; text-decoration:none;}
+
+  header.topbar{
+    position:sticky; top:0; z-index:30; display:flex; align-items:center; justify-content:space-between;
+    padding:16px 4vw; background:rgba(15,14,12,0.96); border-bottom:1px solid var(--rule); backdrop-filter:blur(6px);
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{width:26px; height:26px;}
+  .brand-name{font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700;}
+  .brand-name span{color:var(--brass);}
+  .back-link{font-family:'Special Elite',monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--parchment-dim); border-bottom:1px solid var(--steel); padding-bottom:2px;}
+  .back-link:hover{color:var(--brass-bright); border-color:var(--brass);}
+
+  .breadcrumb{max-width:1300px; margin:34px auto 0; padding:0 4vw; font-family:'Special Elite',monospace; font-size:11.5px; letter-spacing:0.05em; color:var(--steel-light); text-transform:uppercase;}
+  .breadcrumb a:hover{color:var(--brass-bright);}
+
+  .detail-layout{
+    max-width:1300px; margin:0 auto; padding:26px 4vw 100px;
+    display:grid; grid-template-columns:1.1fr 1fr; gap:60px;
+  }
+
+  /* image gallery */
+  .gallery-col .main-plate{
+    border:1px solid var(--rule); background:radial-gradient(ellipse at 50% 40%, rgba(201,165,104,0.10), transparent 70%);
+    height:400px; display:flex; align-items:center; justify-content:center; padding:30px; margin-bottom:14px;
+  }
+  .main-plate svg{width:100%; height:100%; stroke:var(--parchment-dim); fill:none; stroke-width:1;}
+  .thumb-row{display:flex; gap:12px;}
+  .thumb{
+    flex:1; height:80px; border:1px solid var(--rule); background:var(--panel);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; padding:10px;
+    transition:border-color .2s;
+  }
+  .thumb:hover, .thumb.active{border-color:var(--brass);}
+  .thumb svg{width:100%; height:100%; stroke:var(--steel-light); fill:none; stroke-width:1;}
+
+  /* info column */
+  .catalog-line{font-family:'Special Elite',monospace; font-size:12px; letter-spacing:0.14em; color:var(--brass); margin-bottom:10px;}
+  .info-col h1{font-size:clamp(32px,3.6vw,44px); margin-bottom:8px;}
+  .subtitle{font-style:italic; color:var(--parchment-dim); font-size:18px; margin-bottom:26px;}
+  .condition-badge{
+    display:inline-block; font-family:'Special Elite',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--brass); border:1px solid var(--brass); padding:5px 12px; margin-bottom:26px;
+  }
+
+  .spec-table{width:100%; border-collapse:collapse; margin-bottom:34px;}
+  .spec-table tr{border-bottom:1px solid var(--rule);}
+  .spec-table td{padding:12px 0; font-size:15.5px;}
+  .spec-table td:first-child{
+    font-family:'Special Elite',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--steel-light); width:38%;
+  }
+  .spec-table td:last-child{color:var(--parchment);}
+
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{font-family:'Special Elite',monospace; font-size:12.5px; letter-spacing:0.1em; text-transform:uppercase; padding:14px 26px; display:inline-block; transition:all .2s; border:1px solid transparent;}
+  .btn-primary{background:var(--oxblood); border-color:var(--oxblood); color:var(--parchment);}
+  .btn-primary:hover{background:var(--oxblood-bright); border-color:var(--oxblood-bright);}
+  .btn-outline{border-color:var(--brass); color:var(--brass-bright);}
+  .btn-outline:hover{background:var(--brass); color:var(--iron-deep);}
+
+  /* prose sections */
+  .prose-section{max-width:1300px; margin:0 auto; padding:0 4vw 70px;}
+  .prose-section h2{font-size:clamp(24px,2.8vw,30px); margin-bottom:18px; padding-top:36px; border-top:1px solid var(--rule);}
+  .prose-section p{color:var(--parchment-dim); max-width:80ch; margin-bottom:16px;}
+
+  .usage-tags{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;}
+  .usage-tag{font-family:'Special Elite',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; border:1px solid var(--steel); color:var(--parchment-dim); padding:6px 14px;}
+
+  /* related items */
+  .related{max-width:1300px; margin:0 auto; padding:0 4vw 100px;}
+  .related h2{font-size:clamp(24px,2.8vw,30px); margin-bottom:26px; padding-top:36px; border-top:1px solid var(--rule);}
+  .related-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:24px;}
+  .rel-card{background:linear-gradient(180deg,#1c1a16,#14120f); border:1px solid var(--rule); transition:border-color .2s, transform .2s;}
+  .rel-card:hover{border-color:var(--brass); transform:translateY(-3px);}
+  .rel-card .plate{height:130px; border-bottom:1px solid var(--rule); display:flex; align-items:center; justify-content:center; padding:14px;}
+  .rel-card .plate svg{width:100%; height:100%; stroke:var(--parchment-dim); fill:none; stroke-width:1;}
+  .rel-card h3{font-size:18px; padding:14px 16px 0; color:var(--parchment);}
+  .rel-card .era-tag{padding:4px 16px 16px; font-size:13px; color:var(--parchment-dim); font-style:italic;}
+
+  footer{padding:70px 4vw 40px; background:var(--iron-deep); border-top:1px solid var(--rule);}
+  .footer-grid{max-width:1300px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;}
+  .footer-grid h4{font-family:'Special Elite',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--brass); margin-bottom:16px;}
+  .footer-grid p, .footer-grid a{font-size:14.5px; color:var(--parchment-dim); display:block; margin-bottom:9px;}
+  .footer-grid a:hover{color:var(--brass-bright);}
+  .footer-bottom{max-width:1300px; margin:50px auto 0; padding-top:24px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12.5px; color:var(--steel-light); font-family:'Special Elite',monospace;}
+
+  @media (max-width:900px){
+    .detail-layout{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <svg class="brand-mark" viewBox="0 0 40 40" fill="none" stroke="var(--brass)" stroke-width="1.4">
+      <circle cx="20" cy="20" r="17"/>
+      <path d="M8 20 L32 20 M20 8 L20 32" stroke-width="0.8" opacity="0.6"/>
+      <path d="M13 24 L27 24 L25 16 L15 16 Z"/>
+    </svg>
+    <div class="brand-name">gunpowder<span>.weapon</span></div>
+  </a>
+  <a class="back-link" href="/home.html">← Back to Collection</a>
+</header>
+
+<div class="breadcrumb">
+  <a href="/">Home</a> / <a href="/home.html">Collection</a> / <a href="/home.html#gauge">Flintlock Era</a> / Brown Bess Musket
+</div>
+
+<div class="detail-layout">
+  <div class="gallery-col">
+    <div class="main-plate">
+      <svg viewBox="0 0 400 200"><path d="M15 110 L320 90 L350 88 L390 78"/><path d="M40 118 L45 150 L55 150 L60 130"/><path d="M150 105 L150 150 L160 150 L165 100"/><path d="M300 96 Q310 60 330 60 Q345 60 345 78 L340 96"/></svg>
+    </div>
+    <div class="thumb-row">
+      <div class="thumb active"><svg viewBox="0 0 60 40"><path d="M2 20 L55 15"/></svg></div>
+      <div class="thumb"><svg viewBox="0 0 60 40"><circle cx="30" cy="20" r="12"/></svg></div>
+      <div class="thumb"><svg viewBox="0 0 60 40"><path d="M5 30 L30 8 L55 30"/></svg></div>
+      <div class="thumb"><svg viewBox="0 0 60 40"><rect x="10" y="10" width="40" height="20"/></svg></div>
+    </div>
+  </div>
+
+  <div class="info-col">
+    <div class="catalog-line">CAT. NO. 0411</div>
+    <h1>British "Brown Bess" Musket</h1>
+    <p class="subtitle">London, England · Standard-issue infantry flintlock · c. 1722</p>
+    <span class="condition-badge">Stage-Weight Prop Reproduction</span>
+
+    <table class="spec-table">
+      <tr><td>Mechanism</td><td>Flintlock (flint &amp; frizzen)</td></tr>
+      <tr><td>Caliber</td><td>.75 in (Land Pattern musket bore)</td></tr>
+      <tr><td>Barrel Length</td><td>46 in (Long Land Pattern)</td></tr>
+      <tr><td>Origin</td><td>England — Board of Ordnance pattern</td></tr>
+      <tr><td>Materials</td><td>Walnut stock, forged iron furniture, steel barrel (prop-weight alloy)</td></tr>
+      <tr><td>Era</td><td>Flintlock, 18th century</td></tr>
+    </table>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#">Add to Saved Specimens</a>
+      <a class="btn btn-outline" href="#">Download Spec Sheet</a>
+    </div>
+  </div>
+</div>
+
+<section class="prose-section">
+  <h2>Historical Background</h2>
+  <p>The Brown Bess entered British service in the early 18th century and remained the backbone of infantry armament for well over a hundred years, seeing action from the War of the Austrian Succession through the Napoleonic Wars. Its long service life made it one of the most widely produced flintlock muskets in history, with regional pattern variations issued across the British Army and allied colonial militias.</p>
+  <p>The piece cataloged here reflects the Long Land Pattern configuration, distinguished by its extended barrel and the characteristic brass furniture that likely inspired the weapon's enduring nickname.</p>
+</section>
+
+<section class="prose-section">
+  <h2>Usage Context</h2>
+  <p>Issued as standard infantry equipment, the Brown Bess was designed for massed volley fire in line-formation warfare rather than individual marksmanship. Its use spanned regular military service, colonial garrison duty, and — in various surplus and reproduction forms — civilian militia drill.</p>
+  <div class="usage-tags">
+    <span class="usage-tag">Military — Line Infantry</span>
+    <span class="usage-tag">Colonial Garrison</span>
+    <span class="usage-tag">Reenactment</span>
+    <span class="usage-tag">Stage &amp; Film Prop</span>
+  </div>
+</section>
+
+<section class="related">
+  <h2>Related &amp; Similar Items</h2>
+  <div class="related-grid">
+    <a class="rel-card" href="/detail.html?item=0522">
+      <div class="plate"><svg viewBox="0 0 200 100"><path d="M10 58 L145 48 L160 46 L180 42 M85 40 Q92 24 105 26 Q112 28 110 38"/></svg></div>
+      <h3>French Flintlock Dueling Pistol</h3>
+      <p class="era-tag">Paris · c. 1790</p>
+    </a>
+    <a class="rel-card" href="/detail.html?item=0601">
+      <div class="plate"><svg viewBox="0 0 200 100"><path d="M12 62 L140 52 L158 50 L178 46 M70 56 L70 78 L78 78 L80 54"/></svg></div>
+      <h3>Ottoman Miquelet Musket</h3>
+      <p class="era-tag">Anatolia · c. 1650</p>
+    </a>
+    <a class="rel-card" href="/detail.html?item=0655">
+      <div class="plate"><svg viewBox="0 0 200 100"><path d="M10 56 L155 48 L172 46 L192 42 M95 36 Q100 22 112 24 Q120 26 118 36"/></svg></div>
+      <h3>Colonial Militia Flintlock</h3>
+      <p class="era-tag">New England · c. 1775</p>
+    </a>
+    <a class="rel-card" href="/detail.html?item=0359">
+      <div class="plate"><svg viewBox="0 0 200 100"><path d="M8 58 L155 46 L172 44 L190 40 M100 32 Q112 14 128 18 Q136 22 132 34"/></svg></div>
+      <h3>German Wheellock Pistol</h3>
+      <p class="era-tag">Augsburg · c. 1580</p>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>gunpowder.weapon</h4>
+      <p style="max-width:32ch;">A cataloged archive of firearms history, 12th to early 19th century. Built for collectors, reenactors, prop makers, and researchers.</p>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <a href="/">About</a>
+      <a href="/home.html">Collection</a>
+      <a href="/home.html#gauge">Timeline</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="mailto:archive@gunpowder.weapon">archive@gunpowder.weapon</a>
+      <a href="#">Submission Guidelines</a>
+    </div>
+    <div>
+      <h4>Credits &amp; Sources</h4>
+      <a href="#">Museum Partners</a>
+      <a href="#">Bibliography</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 gunpowder.weapon — historical reference archive</span>
+    <span>Built for education, preservation &amp; craft</span>
+  </div>
+</footer>
+
+</body>
+</html>
