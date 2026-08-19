@@ -1,153 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>gunpowder.weapon</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gunpowder.weapon — A Journey Through 700 Years of Firearms History</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --iron:#171512;
+    --iron-deep:#0f0e0c;
+    --steel:#3b3833;
+    --steel-light:#5c584f;
+    --brass:#c9a568;
+    --brass-bright:#e3c081;
+    --parchment:#e9e0c8;
+    --parchment-dim:#b9ae8f;
+    --oxblood:#7c2c20;
+    --oxblood-bright:#a5402f;
+    --rule: rgba(201,165,104,0.25);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--iron);
+    color:var(--parchment);
+    font-family:'EB Garamond', serif;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:600; margin:0;}
+  .eyebrow{
+    font-family:'Special Elite', monospace;
+    font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--brass);
+  }
+  a{color:inherit;}
+
+  /* ---------- HEADER ---------- */
+  header.topbar{
+    position:sticky; top:0; z-index:20;
+    display:flex; align-items:center; justify-content:center;
+    padding:22px 6vw;
+    background:var(--iron-deep);
+    border-bottom:1px solid var(--rule);
+    backdrop-filter:blur(6px);
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand-mark{width:30px;height:30px;flex:none;}
+  .brand-name{font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:700; letter-spacing:0.03em; color:var(--parchment);}
+  .brand-name span{color:var(--brass);}
+
+  /* ---------- NAV (now below header) ---------- */
+  nav.top-links{
+    position:sticky; top:74px; z-index:19;
+    display:flex; gap:34px; align-items:center; justify-content:center;
+    padding:16px 6vw;
+    background:linear-gradient(180deg, rgba(15,14,12,0.96), rgba(15,14,12,0.86));
+    border-bottom:1px solid var(--rule);
+    backdrop-filter:blur(6px);
+    font-family:'Special Elite',monospace; font-size:12.5px; letter-spacing:0.12em; text-transform:uppercase;
+  }
+  nav.top-links a{text-decoration:none; color:var(--parchment-dim); border-bottom:1px solid transparent; padding-bottom:4px; transition:color .2s, border-color .2s;}
+  nav.top-links a:hover{color:var(--brass-bright); border-color:var(--brass);}
+  .nav-btn{
+    border:1px solid var(--brass); color:var(--brass-bright) !important;
+    padding:8px 16px;
+  }
+  .nav-btn:hover{background:var(--brass); color:var(--iron-deep) !important;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    text-align:center;
+    padding:100px 6vw;
+  }
+  .hero h1{font-size:clamp(36px,6vw,72px); max-width:16ch; margin:20px auto 0;}
+  .hero h1 em{font-style:italic; color:var(--brass-bright);}
+  .hero .tagline{margin-top:20px; font-style:italic; color:var(--parchment-dim); max-width:44ch; margin-left:auto; margin-right:auto;}
+  .hero-illustration{width:min(700px, 80vw); margin:40px auto 8px;}
+  .hero-caption{font-family:'Special Elite',monospace; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--steel-light);}
+
+  /* ---------- TIMELINE / GAUGE STRIP ---------- */
+  .gauge-section{
+    padding:70px 6vw 90px;
+    background:var(--iron-deep);
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+  }
+  .gauge-heading{text-align:center; margin-bottom:56px;}
+  .gauge-heading h2{font-size:clamp(26px,3vw,34px); color:var(--parchment);}
+  .gauge-heading .eyebrow{display:block; margin-bottom:10px;}
+  .gauge{position:relative; max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr);}
+  .gauge::before{content:""; position:absolute; left:0; right:0; top:11px; height:1px; background:var(--steel);}
+  .gauge::after{content:""; position:absolute; left:0; right:0; top:11px; height:1px; background:linear-gradient(90deg, var(--brass), var(--oxblood-bright)); opacity:0.55;}
+  .era{position:relative; text-align:center;}
+  .era .tick{width:1px; height:22px; background:var(--brass); margin:0 auto 22px; position:relative;}
+  .era .dot{position:absolute; top:6px; left:50%; transform:translateX(-50%); width:11px; height:11px; border-radius:50%; background:var(--iron-deep); border:2px solid var(--brass); transition:background .2s;}
+  .era:hover .dot{background:var(--brass);}
+  .era .yr{font-family:'Special Elite', monospace; font-size:12px; letter-spacing:0.05em; color:var(--brass); margin-bottom:6px;}
+  .era h3{font-size:21px; color:var(--parchment); margin-bottom:8px;}
+  .era p{font-size:14.5px; color:var(--parchment-dim); max-width:22ch; margin:0 auto;}
+
+  /* ---------- FEATURED CAROUSEL ---------- */
+  .featured{padding:100px 6vw;}
+  .featured-head{display:flex; justify-content:space-between; align-items:flex-end; max-width:1180px; margin:0 auto 46px; border-bottom:1px solid var(--rule); padding-bottom:22px; flex-wrap:wrap; gap:16px;}
+  .featured-head h2{font-size:clamp(28px,3.4vw,38px);}
+  .carousel-nav{display:flex; gap:10px;}
+  .carousel-nav button{width:38px; height:38px; border-radius:50%; border:1px solid var(--brass); background:transparent; color:var(--brass); font-family:'Special Elite',monospace; cursor:pointer; transition:background .2s, color .2s;}
+  .carousel-nav button:hover{background:var(--brass); color:var(--iron-deep);}
+  .carousel-track{max-width:1180px; margin:0 auto; display:flex; gap:26px; overflow-x:auto; padding-bottom:14px;}
+  .spec-card{flex:0 0 300px; background:linear-gradient(180deg, #1c1a16, #14120f); border:1px solid var(--rule); padding:0 0 26px;}
+  .spec-card .plate{height:190px; border-bottom:1px solid var(--rule); display:flex; align-items:center; justify-content:center; padding:18px;}
+  .spec-card .catalog{font-family:'Special Elite', monospace; font-size:11px; letter-spacing:0.12em; color:var(--brass); padding:18px 20px 6px;}
+  .spec-card h3{font-size:23px; padding:0 20px; color:var(--parchment);}
+  .spec-card .era-tag{padding:8px 20px 0; font-size:14px; color:var(--parchment-dim); font-style:italic;}
+  .spec-card .view{display:inline-block; margin:16px 20px 0; font-family:'Special Elite',monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--brass-bright); text-decoration:none; border-bottom:1px solid var(--brass); padding-bottom:2px;}
+
+  /* ---------- CTA ---------- */
+  .cta-section{padding:100px 6vw; text-align:center; background:var(--iron-deep); border-top:1px solid var(--rule);}
+  .cta-section h2{font-size:clamp(28px,4vw,42px); max-width:18ch; margin:0 auto 16px;}
+  .cta-section p{color:var(--parchment-dim); max-width:48ch; margin:0 auto 36px; font-style:italic;}
+  .cta-buttons{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .btn{font-family:'Special Elite', monospace; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; padding:14px 26px; text-decoration:none; display:inline-block; border:1px solid transparent;}
+  .btn-primary{background:var(--oxblood); color:var(--parchment); border-color:var(--oxblood);}
+  .btn-outline{border-color:var(--brass); color:var(--brass-bright);}
+  .btn-ghost{border-color:var(--steel-light); color:var(--parchment-dim);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:70px 6vw 40px; background:var(--iron-deep); border-top:1px solid var(--rule);}
+  .footer-grid{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;}
+  .footer-grid h4{font-family:'Special Elite', monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--brass); margin-bottom:16px;}
+  .footer-grid p, .footer-grid a{font-size:14.5px; color:var(--parchment-dim); text-decoration:none; display:block; margin-bottom:9px;}
+  .footer-grid a:hover{color:var(--brass-bright);}
+  .footer-bottom{max-width:1180px; margin:50px auto 0; padding-top:24px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12.5px; color:var(--steel-light); font-family:'Special Elite',monospace; letter-spacing:0.05em;}
+
+  /* ---------- IMAGE PLACEHOLDER ---------- */
+  .img-placeholder{
+    width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    border:1px dashed var(--steel-light);
+    color:var(--steel-light);
+    font-family:'Special Elite', monospace;
+    font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
+    text-align:center;
+    padding:12px;
+    min-height:100px;
+  }
+</style>
 </head>
 <body>
-  <!-- -HEAD / NAV -->
-  <header>
-    <div>
-      <!-- IMAGE PLACEHOLDER:  -->
-      <div>[Logo]</div>
-      <h1>gunpowder.weapon</h1>
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 40 40" fill="none" stroke="var(--brass)" stroke-width="1.4">
+      <circle cx="20" cy="20" r="17"/>
+      <path d="M8 20 L32 20 M20 8 L20 32" stroke-width="0.8" opacity="0.6"/>
+      <path d="M13 24 L27 24 L25 16 L15 16 Z"/>
+    </svg>
+    <div class="brand-name">gunpowder<span>.weapon</span></div>
+  </div>
+</header>
+
+<nav class="top-links">
+  <a href="#gauge">Eras</a>
+  <a href="#featured">Collection</a>
+  <a href="#about">About</a>
+  <a href="/login.html">Sign In</a>
+  <a class="nav-btn" href="/register.html">Create Account</a>
+</nav>
+
+<main>
+
+<section class="hero">
+  <span class="eyebrow">Est. 1200 — 1840 · An Archive of Ignition</span>
+  <h1>A Journey Through <em>700 Years</em> of Firearms History</h1>
+  <p class="tagline">From the first hand cannons of the 12th century to the percussion cap's quiet revolution — cataloged, measured, and preserved.</p>
+
+  <div class="hero-illustration">
+    <div class="img-placeholder" style="aspect-ratio:700/180;">Hero Image</div>
+  </div>
+  <span class="hero-caption">Fig. 01 — Composite silhouette, flintlock mechanism, 18th c.</span>
+</section>
+
+<section class="gauge-section" id="gauge">
+  <div class="gauge-heading">
+    <span class="eyebrow">The Timeline</span>
+    <h2>Five Centuries, Five Mechanisms</h2>
+  </div>
+  <div class="gauge">
+    <div class="era">
+      <div class="tick"><div class="dot"></div></div>
+      <div class="yr">c. 1200s</div>
+      <h3>Hand Cannons</h3>
+      <p>The earliest gunpowder arms — touch-hole ignition, cast in bronze and iron.</p>
     </div>
-    <nav>
-      <ul>
-        <li><a href="#eras">Eras</a></li>
-        <li><a href="#featured">Collection</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="login.html">Sign In</a></li>
-        <li><a href="register.html">Create Account</a></li>
-      </ul>
-    </nav>
-  </header>
-  <!-- MAIN BODY -->
-  <main>
-    <!-- HERO SECTION -->
-    <section id="hero">
-      <p>Est. 1200 — 1840 · An Archive of Ignition</p>
-      <h2>A Journey Through 700 Years of Firearms History</h2>
-      <p>From the first hand cannons of the 12th century to the percussion cap's quiet revolution — cataloged, measured, and preserved.</p>      
-      <div>[Hero Image — Musket Illustration]</div>
-      <p><small>Fig. 01 — Composite silhouette, flintlock mechanism, 18th c.</small></p>
-    </section>
-    <!-- eRA TIME LINE -->
-    <section id="eras">
-      <p>The Timeline</p>
-      <h2>Five Centuries, Five Mechanisms</h2>
-      <ul>
-        <li>
-          <h3>Hand Cannons</h3>
-          <p>c. 1200s</p>
-          <p>The earliest gunpowder arms — touch-hole ignition, cast in bronze and iron.</p>
-        </li>
-        <li>
-          <h3>Matchlock</h3>
-          <p>c. 1400s</p>
-          <p>A smoldering cord meets the pan — the first true trigger mechanism.</p>
-        </li>
-        <li>
-          <h3>Wheellock</h3>
-          <p>c. 1500s</p>
-          <p>Clockwork precision — spinning steel strikes pyrite for a spark.</p>
-        </li>
-        <li>
-          <h3>Flintlock</h3>
-          <p>c. 1600s–1700s</p>
-          <p>Flint on frizzen — reliable, mass-produced, the standard of empires.</p>
-        </li>
-        <li>
-          <h3>Percussion Cap</h3>
-          <p>Early 1800s</p>
-          <p>Mercury fulminate replaces sparks — weatherproof ignition arrives.</p>
-        </li>
-      </ul>
-    </section>
-    <section id="featured">
-      <p>From the Collection</p>
+    <div class="era">
+      <div class="tick"><div class="dot"></div></div>
+      <div class="yr">c. 1400s</div>
+      <h3>Matchlock</h3>
+      <p>A smoldering cord meets the pan — the first true trigger mechanism.</p>
+    </div>
+    <div class="era">
+      <div class="tick"><div class="dot"></div></div>
+      <div class="yr">c. 1500s</div>
+      <h3>Wheellock</h3>
+      <p>Clockwork precision — spinning steel strikes pyrite for a spark.</p>
+    </div>
+    <div class="era">
+      <div class="tick"><div class="dot"></div></div>
+      <div class="yr">c. 1600–1700s</div>
+      <h3>Flintlock</h3>
+      <p>Flint on frizzen — reliable, mass-produced, the standard of empires.</p>
+    </div>
+    <div class="era">
+      <div class="tick"><div class="dot"></div></div>
+      <div class="yr">Early 1800s</div>
+      <h3>Percussion Cap</h3>
+      <p>Mercury fulminate replaces sparks — weatherproof ignition arrives.</p>
+    </div>
+  </div>
+</section>
+
+<section class="featured" id="featured">
+  <div class="featured-head">
+    <div>
+      <span class="eyebrow">From the Collection</span>
       <h2>Featured Pieces</h2>
-      <article>
-        <!-- IMAGE PLACEHOLDER: item thumbnail -->
-        <div>[Item Image]</div>
-        <p>CAT. NO. 0142</p>
-        <h3>Milanese Hand Cannon</h3>
-        <p>Northern Italy · c. 1390</p>
-        <a href="detail.html?item=0142">View Details</a>
-      </article>
-      <article>
-        <!-- IMAGE PLACEHOLDER: item thumbnail -->
-        <div>[Item Image]</div>
-        <p>CAT. NO. 0287</p>
-        <h3>Spanish Matchlock Arquebus</h3>
-        <p>Toledo · c. 1530</p>
-        <a href="detail.html?item=0287">View Details</a>
-      </article>
-      <article>
-        <!-- IMAGE PLACEHOLDER:  -->
-        <div>[Item Image]</div>
-        <p>CAT. NO. 0359</p>
-        <h3>German Wheellock Pistol</h3>
-        <p>Augsburg · c. 1580</p>
-        <a href="detail.html?item=0359">View Details</a>
-      </article>
-      <article>
-        <!-- IMAGE PLACEHOLDER:  -->
-        <div>[Item Image]</div>
-        <p>CAT. NO. 0411</p>
-        <h3>British "Brown Bess" Musket</h3>
-        <p>London · c. 1722</p>
-        <a href="detail.html?item=0411">View Details</a>
-      </article>
-      <article>
-        <!-- IMAGE PLACEHOLDER: -->
-        <div>[Item Image]</div>
-        <p>CAT. NO. 0468</p>
-        <h3>American Percussion Rifle</h3>
-        <p>Pennsylvania · c. 1835</p>
-        <a href="detail.html?item=0468">View Details</a>
-      </article>
-    </section>
-    <section id="about">
-      <h2>Step Into the Collection</h2>
-      <p>Browse cataloged pieces by era, mechanism, and origin — or create an account to save specimens, contribute notes, and track your own research.</p>
-      <a href="home.html">Explore the Collection</a>
-      <a href="login.html">Sign In</a>
-      <a href="register.html">Create Account</a>
-    </section>
-  </main>
-  <!-- F00TER -->
-  <footer>
+    </div>
+    <div class="carousel-nav">
+      <button aria-label="Scroll left" onclick="document.querySelector('.carousel-track').scrollBy({left:-320,behavior:'smooth'})">‹</button>
+      <button aria-label="Scroll right" onclick="document.querySelector('.carousel-track').scrollBy({left:320,behavior:'smooth'})">›</button>
+    </div>
+  </div>
+
+  <div class="carousel-track">
+    <article class="spec-card">
+      <div class="plate">
+        <div class="img-placeholder">Item Image</div>
+      </div>
+      <div class="catalog">CAT. NO. 0142</div>
+      <h3>Milanese Hand Cannon</h3>
+      <p class="era-tag">Northern Italy · c. 1390</p>
+      <a class="view" href="#">View Details →</a>
+    </article>
+
+    <article class="spec-card">
+      <div class="plate">
+        <div class="img-placeholder">Item Image</div>
+      </div>
+      <div class="catalog">CAT. NO. 0287</div>
+      <h3>Spanish Matchlock Arquebus</h3>
+      <p class="era-tag">Toledo · c. 1530</p>
+      <a class="view" href="#">View Details →</a>
+    </article>
+
+    <article class="spec-card">
+      <div class="plate">
+        <div class="img-placeholder">Item Image</div>
+      </div>
+      <div class="catalog">CAT. NO. 0359</div>
+      <h3>German Wheellock Pistol</h3>
+      <p class="era-tag">Augsburg · c. 1580</p>
+      <a class="view" href="#">View Details →</a>
+    </article>
+
+    <article class="spec-card">
+      <div class="plate">
+        <div class="img-placeholder">Item Image</div>
+      </div>
+      <div class="catalog">CAT. NO. 0411</div>
+      <h3>British "Brown Bess" Musket</h3>
+      <p class="era-tag">London · c. 1722</p>
+      <a class="view" href="#">View Details →</a>
+    </article>
+
+    <article class="spec-card">
+      <div class="plate">
+        <div class="img-placeholder">Item Image</div>
+      </div>
+      <div class="catalog">CAT. NO. 0468</div>
+      <h3>American Percussion Rifle</h3>
+      <p class="era-tag">Pennsylvania · c. 1835</p>
+      <a class="view" href="#">View Details →</a>
+    </article>
+  </div>
+</section>
+
+<section class="cta-section" id="about">
+  <h2>Step Into the Collection</h2>
+  <p>Browse cataloged pieces by era, mechanism, and origin — or create an account to save specimens, contribute notes, and track your own research.</p>
+  <div class="cta-buttons">
+    <a class="btn btn-primary" href="/home.html">Explore the Collection</a>
+    <a class="btn btn-outline" href="/login.html">Sign In</a>
+    <a class="btn btn-ghost" href="/register.html">Create Account</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
     <div>
       <h4>gunpowder.weapon</h4>
-      <p>A cataloged archive of firearms history, 12th to early 19th century. Built for collectors, reenactors, prop makers, and researchers.</p>
+      <p style="color:var(--parchment-dim); max-width:32ch;">A cataloged archive of firearms history, 12th to early 19th century. Built for collectors, reenactors, prop makers, and researchers.</p>
     </div>
     <div>
       <h4>Site</h4>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#featured">Collection</a></li>
-        <li><a href="#eras">Timeline</a></li>
-      </ul>
+      <a href="#about">About</a>
+      <a href="#featured">Collection</a>
+      <a href="#gauge">Timeline</a>
     </div>
     <div>
       <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:archive@gunpowder.weapon">archive@gunpowder.weapon</a></li>
-        <li><a href="#">Submission Guidelines</a></li>
-      </ul>
+      <a href="mailto:archive@gunpowder.weapon">archive@gunpowder.weapon</a>
+      <a href="#">Submission Guidelines</a>
     </div>
     <div>
       <h4>Credits &amp; Sources</h4>
-      <ul>
-        <li><a href="#">Museum Partners</a></li>
-        <li><a href="#">Bibliography</a></li>
-      </ul>
+      <a href="#">Museum Partners</a>
+      <a href="#">Bibliography</a>
     </div>
-    <p>&copy; 2026 gunpowder.weapon — historical reference archive</p>
-    <p><small>Built for education, preservation &amp; craft</small></p>
-  </footer>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 gunpowder.weapon — historical reference archive</span>
+    <span>Built for education, preservation &amp; craft</span>
+  </div>
+</footer>
 
 </body>
 </html>
